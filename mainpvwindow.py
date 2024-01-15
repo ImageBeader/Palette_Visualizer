@@ -1,6 +1,11 @@
 # This Python file uses the following encoding: utf-8
 
-from PySide6.QtWidgets import QMainWindow, QLabel, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox
+from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox
+
+import matplotlib
+matplotlib.use("QTAgg")
+
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 
 class MainPVWindow(QMainWindow):
     def __init__(self):
@@ -67,7 +72,7 @@ class MainPVWindow(QMainWindow):
 
         rgb_control = QWidget()
         rgb_control.setLayout(QHBoxLayout())
-        single_rgb_group.layout().addChildWidget(rgb_control)
+        single_rgb_group.layout().addWidget(rgb_control)
 
         rgb_add = QPushButton("Add")
         rgb_control.layout().addWidget(rgb_add)
@@ -77,8 +82,5 @@ class MainPVWindow(QMainWindow):
 
         #Plot area
 
-        label2 = QLabel("The plot chart goes here")
-        label2.setGeometry(110,50
-                         ,200,100
-                         )
-        root.layout().addWidget(label2)
+        pScatterPlot = FigureCanvasQTAgg()
+        root.layout().addWidget(pScatterPlot)
