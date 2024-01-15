@@ -6,8 +6,10 @@ import matplotlib
 matplotlib.use("QTAgg")
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
+from matplotlib.figure import Figure
 
 class MainPVWindow(QMainWindow):
+
     def __init__(self):
         super(MainPVWindow, self).__init__()
 
@@ -16,7 +18,21 @@ class MainPVWindow(QMainWindow):
                         ,1280,720     #Window size
                         )
 
+        self.initializeScatterPlot()
         self.setupUi()
+    #END OF def __init__(self)
+
+    def initializeScatterPlot(self):
+        self.plot_figure = Figure()
+        self.plot_ax = self.plot_figure.add_subplot(projection='3d')
+
+        self.plot_ax.set_xlabel("Red")
+        self.plot_ax.set_ylabel("Green")
+        self.plot_ax.set_zlabel("Blue")
+
+        self.plot_ax.scatter(xs=0,ys=128,zs=64, marker='o')
+        self.plot_ax.scatter(xs=128,ys=128,zs=96, marker='^')
+
 
     def setupUi(self):
         #Root widget
@@ -82,5 +98,7 @@ class MainPVWindow(QMainWindow):
 
         #Plot area
 
-        pScatterPlot = FigureCanvasQTAgg()
+        pScatterPlot = FigureCanvasQTAgg(self.plot_figure)
+
         root.layout().addWidget(pScatterPlot)
+    #END OF def setupUI(self)
