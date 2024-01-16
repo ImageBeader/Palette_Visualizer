@@ -18,7 +18,9 @@ class MainPVWindow(QMainWindow):
                         ,1280,720     #Window size
                         )
 
+        self.plot_dataset = {}
         self.initializeScatterPlot()
+
         self.setupUi()
     #END OF def __init__(self)
 
@@ -30,9 +32,7 @@ class MainPVWindow(QMainWindow):
         self.plot_ax.set_ylabel("Green")
         self.plot_ax.set_zlabel("Blue")
 
-        self.plot_ax.scatter(xs=0,ys=128,zs=64, marker='o')
-        self.plot_ax.scatter(xs=128,ys=128,zs=96, marker='^')
-
+        self.plot_dataset["single"] = self.plot_ax.scatter(xs=128,ys=128,zs=96, marker='^')
 
     def setupUi(self):
         #Root widget
@@ -55,16 +55,18 @@ class MainPVWindow(QMainWindow):
         file_load_group.setLayout(QVBoxLayout())
         tool_box.layout().addWidget(file_load_group)
 
-        file_box = QLineEdit("Pallete Visualizer Controls go here")
-        file_box.setGeometry(110,25
+        self.file_box = QLineEdit("Pallete Visualizer Controls go here")
+        self.file_box.setGeometry(110,25
                             ,200,100
                             )
-        file_load_group.layout().addWidget(file_box)
+        file_load_group.layout().addWidget(self.file_box)
 
         pallete_load_btn = QPushButton("load")
+        pallete_load_btn.clicked.connect(self.loadPalette)
         file_load_group.layout().addWidget(pallete_load_btn)
 
         pallete_clear_btn = QPushButton("clear")
+        pallete_clear_btn.clicked.connect(self.clearPalette)
         file_load_group.layout().addWidget(pallete_clear_btn)
 
         #manual color check
@@ -102,3 +104,15 @@ class MainPVWindow(QMainWindow):
 
         root.layout().addWidget(pScatterPlot)
     #END OF def setupUI(self)
+
+    def loadPalette(self):
+        self.file_box.setText("Loaded palette")
+
+    def clearPalette(self):
+        self.file_box.setText("")
+
+        if "palette" in self.plot_dataset.keys() and self.plot_dataset["palette"] is not None:
+            self.plot_dataset["palette"].remove()
+            self.plot_dataset["palette"] = None
+
+        self.plot_figure.canvas.draw()
