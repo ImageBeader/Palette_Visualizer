@@ -1,0 +1,14 @@
+{
+    "name": "Perler",
+    "colors" : [
+         {"id": 18, "name":"Black", "rgb": [0,0,0], "shorthand":"B"}
+        ,{"id": 1, "name":"White", "rgb": [255,255,255], "shorthand":"W"}
+        ,{"id": 79, "name":"Light Pink", "rgb": [245,200,230], "code":"Lp"}
+        ,{"id": 6, "name":"Bubblegum", "rgb": [240,130,175], "code":"Bg"}
+        ,{"id": 83, "name":"Magenta", "rgb": [255,60,130], "code":"M"}
+        ,{"id": 88, "name":"Raspberry", "rgb": [190,70,115], "code":"Rb"}
+        ,{"id": 96, "name":"Cranapple", "rgb": [78,5,28], "code":"Ca"}
+        ,{"id": 59, "name":"Hot Coral", "rgb": [255,90,115], "shorthand":"Hc"}
+        ,{"id": 5, "name":"red", "rgb": [205,70,90], "shorthand":"R"}
+    ]
+}
