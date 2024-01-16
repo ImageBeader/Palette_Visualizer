@@ -1,12 +1,14 @@
 # This Python file uses the following encoding: utf-8
 
-from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox
+from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox, QFileDialog
 
 import matplotlib
 matplotlib.use("QTAgg")
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
+
+from colorpalette import ColorPalette
 
 class MainPVWindow(QMainWindow):
 
@@ -106,13 +108,37 @@ class MainPVWindow(QMainWindow):
     #END OF def setupUI(self)
 
     def loadPalette(self):
-        self.file_box.setText("Loaded palette")
+
+        file_choice = QFileDialog.getOpenFileName(self, "Open Palette", "~","palette file (*.json);;All Files (*)")
+
+        filename = str(file_choice[0])
+
+        if filename:
+
+            color_palette = ColorPalette.loadFromJson(filename)
+
+            self.plot_ax.set_title(color_palette.getName())
+
+            plot_data = color_palette.formatForPlot()
+
+            if "palette" in self.plot_dataset.keys() and self.plot_dataset["palette"] is not None:
+                self.plot_dataset["palette"].remove()
+            
+            self.plot_dataset["palette"] = self.plot_ax.scatter(xs=plot_data["x"], ys=plot_data["y"], zs=plot_data["z"], c=plot_data["colors"])
+
+            self.file_box.setText(filename)
+
+
+        self.plot_figure.canvas.draw()
+    #END OF def loadPalette(self)
 
     def clearPalette(self):
         self.file_box.setText("")
+        self.plot_ax.set_title("")
 
         if "palette" in self.plot_dataset.keys() and self.plot_dataset["palette"] is not None:
             self.plot_dataset["palette"].remove()
             self.plot_dataset["palette"] = None
 
         self.plot_figure.canvas.draw()
+    # END OF def clearPalette(self)
