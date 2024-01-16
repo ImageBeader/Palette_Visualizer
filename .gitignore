@@ -41,6 +41,7 @@ venv/
 # qtcreator generated files
 *.pro.user*
 CMakeLists.txt.user*
+*.pyproject.user
 
 # xemacs temporary files
 *.flc
