@@ -9,6 +9,37 @@
         ,{"id": 88, "name":"Raspberry", "rgb": [190,70,115], "code":"Rb"}
         ,{"id": 96, "name":"Cranapple", "rgb": [78,5,28], "code":"Ca"}
         ,{"id": 59, "name":"Hot Coral", "rgb": [255,90,115], "shorthand":"Hc"}
-        ,{"id": 5, "name":"red", "rgb": [205,70,90], "shorthand":"R"}
+        ,{"id": 20, "name":"Rust", "rgb": [185,90,90], "shorthand":"R"}
+        ,{"id": 33, "name":"Peach", "rgb": [250,205,195], "shorthand":"P"}
+        ,{"id": 63, "name":"Blush", "rgb": [255,150,160], "shorthand":"Bl"}
+        ,{"id": 90, "name":"Butterscotch", "rgb": [240,150,110], "shorthand":"Bs"}
+        ,{"id": 4, "name":"Orange", "rgb": [255,115,80], "shorthand":"O"}
+        ,{"id": 2, "name":"Creme", "rgb": [240,230,195], "shorthand":"Cr"}
+        ,{"id": 98, "name":"Sand", "rgb": [220,200,175], "shorthand":"S"}
+        ,{"id": 56, "name":"Pastel Yellow", "rgb": [245,240,115], "shorthand":"Py"}
+        ,{"id": 3, "name":"Yellow", "rgb": [255,240,115], "shorthand":"Y"}
+        ,{"id": 57, "name":"Cheddar", "rgb": [250,200,85], "shorthand":"Cd"}
+        ,{"id": 97, "name":"Prickly Pear", "rgb": [175,205,5], "shorthand":"Pp"}
+        ,{"id": 61, "name":"Kiwi Lime", "rgb": [125,210,80], "shorthand":"Kl"}
+        ,{"id": 53, "name":"Pastel Green", "rgb": [135,210,145], "shorthand":"Pg"}
+        ,{"id": 11, "name":"Light Green", "rgb": [75,195,180], "shorthand":"Lg"}
+        ,{"id": 80, "name":"Green", "rgb": [115,185,115], "shorthand":"G"}
+        ,{"id": 10, "name":"Dark Green", "rgb": [40,140,100], "shorthand":"Dg"}
+        ,{"id": 91, "name":"Parrot Green", "rgb": [0,150,165], "shorthand":"Prg"}
+        ,{"id": 58, "name":"Toothpaste", "rgb": [125,210,80], "shorthand":"Kl"}
+        ,{"id": 52, "name":"Pastel Blue", "rgb": [90,160,205], "shorthand":"Pb"}
+        ,{"id": 62, "name":"Turquoise", "rgb": [5,150,205], "shorthand":"T"}
+        ,{"id": 9, "name":"Light Blue", "rgb": [45,130,200], "shorthand":"Lb"}
+        ,{"id": 8, "name":"Dark Blue", "rgb": [35,80,145], "shorthand":"Db"}
+        ,{"id": 70, "name":"Periwinkle Blue", "rgb": [85,125,185], "shorthand":"Pw"}
+        ,{"id": 54, "name":"Pastel Lavender", "rgb": [155,135,205], "shorthand":"Lv"}
+        ,{"id": 60, "name":"Plum", "rgb": [125,210,80], "shorthand":"Pm"}
+        ,{"id": 7, "name":"Purple", "rgb": [120,95,155], "shorthand":"Pr"}
+        ,{"id": 35, "name":"Tan", "rgb": [205,165,135], "shorthand":"Tn"}
+        ,{"id": 21, "name":"Light Brown", "rgb": [160,130,95], "shorthand":"Lbr"}
+        ,{"id": 12, "name":"Brown", "rgb": [110,90,85], "shorthand":"Br"}
+        ,{"id": 17, "name":"Grey", "rgb": [150,155,160], "shorthand":"Gr"}
+        ,{"id": 92, "name":"Dark Grey", "rgb": [95,100,100], "shorthand":"Dgr"}
+        ,{"id": 93, "name":"Blueberry Cream", "rgb": [140,180,255], "shorthand":"Bc"}
     ]
 }
