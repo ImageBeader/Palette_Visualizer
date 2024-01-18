@@ -24,10 +24,8 @@ class ColorPalette:
                                     (color["rgb"][1]/255),
                                     (color["rgb"][2]/255)
             ))
-
-        print(str(plot_data))
         return plot_data
-
+    #END OF def formatForPlot(self)
 
     @staticmethod
     def loadFromJson(file):
