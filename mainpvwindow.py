@@ -57,7 +57,8 @@ class MainPVWindow(QMainWindow):
         file_load_group.setLayout(QVBoxLayout())
         tool_box.layout().addWidget(file_load_group)
 
-        self.file_box = QLineEdit("Pallete Visualizer Controls go here")
+        self.file_box = QLineEdit("*No palette file loaded*")
+        self.file_box.setReadOnly(True)
         self.file_box.setGeometry(110,25
                             ,200,100
                             )
@@ -133,7 +134,7 @@ class MainPVWindow(QMainWindow):
     #END OF def loadPalette(self)
 
     def clearPalette(self):
-        self.file_box.setText("")
+        self.file_box.setText("*No palette file loaded*")
         self.plot_ax.set_title("")
 
         if "palette" in self.plot_dataset.keys() and self.plot_dataset["palette"] is not None:
