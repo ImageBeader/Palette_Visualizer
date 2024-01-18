@@ -1,6 +1,7 @@
 # This Python file uses the following encoding: utf-8
 
-from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox, QFileDialog
+from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox, QFileDialog, QColorDialog 
+from PySide6.QtGui import QColor
 
 import matplotlib
 matplotlib.use("QTAgg")
@@ -82,14 +83,21 @@ class MainPVWindow(QMainWindow):
         rgb_line.setLayout(QHBoxLayout())
         single_rgb_group.layout().addWidget(rgb_line)
 
-        rgb_red = QSpinBox()
-        rgb_line.layout().addWidget(rgb_red)
+        self.rgb_red = QSpinBox()
+        self.rgb_red.setRange(0,255)
+        rgb_line.layout().addWidget(self.rgb_red)
 
-        rgb_green = QSpinBox()
-        rgb_line.layout().addWidget(rgb_green)
+        self.rgb_green = QSpinBox()
+        self.rgb_green.setRange(0,255)
+        rgb_line.layout().addWidget(self.rgb_green)
 
-        rgb_blue = QSpinBox()
-        rgb_line.layout().addWidget(rgb_blue)
+        self.rgb_blue = QSpinBox()
+        self.rgb_blue.setRange(0,255)
+        rgb_line.layout().addWidget(self.rgb_blue)
+
+        rgb_picker = QPushButton("picker")
+        rgb_picker.clicked.connect(self.rgbPick)
+        rgb_line.layout().addWidget(rgb_picker)
 
         rgb_control = QWidget()
         rgb_control.setLayout(QHBoxLayout())
@@ -143,3 +151,15 @@ class MainPVWindow(QMainWindow):
 
         self.plot_figure.canvas.draw()
     # END OF def clearPalette(self)
+        
+    def rgbPick(self):
+        picked_color = QColorDialog.getColor(initial=QColor.fromRgb(self.rgb_red.value(),self.rgb_green.value(),self.rgb_blue.value()))
+
+        print(str(picked_color.isValid()))
+
+        if picked_color.isValid():
+            self.rgb_red.setValue(picked_color.red())
+            self.rgb_green.setValue(picked_color.blue())
+            self.rgb_blue.setValue(picked_color.green())
+
+#END OF class MainPVWindow(QMainWindow)
