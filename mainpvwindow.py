@@ -28,8 +28,12 @@ class MainPVWindow(QMainWindow):
     #END OF def __init__(self)
 
     def initializeScatterPlot(self):
+        bg_color = "#DDDDDD"
+
         self.plot_figure = Figure()
+        self.plot_figure.set_facecolor(bg_color)
         self.plot_ax = self.plot_figure.add_subplot(projection='3d')
+        self.plot_ax.set_facecolor(bg_color)
 
         self.plot_ax.set_xlabel("Red")
         self.plot_ax.set_xlim(255, 0)
