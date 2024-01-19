@@ -160,8 +160,8 @@ class MainPVWindow(QMainWindow):
 
         if picked_color.isValid():
             self.rgb_red.setValue(picked_color.red())
-            self.rgb_green.setValue(picked_color.blue())
-            self.rgb_blue.setValue(picked_color.green())
+            self.rgb_green.setValue(picked_color.green())
+            self.rgb_blue.setValue(picked_color.blue())
     #END OF def rgbPick(self)
 
     def addRgbPoint(self):
