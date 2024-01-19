@@ -32,8 +32,11 @@ class MainPVWindow(QMainWindow):
         self.plot_ax = self.plot_figure.add_subplot(projection='3d')
 
         self.plot_ax.set_xlabel("Red")
+        self.plot_ax.set_xlim(255, 0)
         self.plot_ax.set_ylabel("Green")
+        self.plot_ax.set_ylim(0, 255)
         self.plot_ax.set_zlabel("Blue")
+        self.plot_ax.set_zlim(0, 255)
 
     def setupUi(self):
         #Root widget
