@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 
-from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox, QFileDialog, QColorDialog 
+from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox, QFileDialog, QColorDialog, QTextEdit
 from PySide6.QtGui import QColor
 
 import matplotlib
@@ -116,6 +116,15 @@ class MainPVWindow(QMainWindow):
         rgb_clear.clicked.connect(self.clearRgbPoint)
         rgb_control.layout().addWidget(rgb_clear)
 
+        #point reference area
+        self.point_comparison = QGroupBox("Single point")
+        self.point_comparison.setLayout(QVBoxLayout())
+        #self.setVisible(False)
+        single_rgb_group.layout().addWidget(self.point_comparison)
+
+        self.comparison_data = QTextEdit()
+        self.point_comparison.layout().addWidget(self.comparison_data)
+
         #Plot area
 
         pScatterPlot = FigureCanvasQTAgg(self.plot_figure)
@@ -169,20 +178,28 @@ class MainPVWindow(QMainWindow):
     #END OF def rgbPick(self)
 
     def addRgbPoint(self):
-        #TODO: Calculate the nearest colors based on the pallete if loaded.
+
 
         if "single" in self.plot_dataset.keys() and self.plot_dataset["single"] is not None:
             self.plot_dataset["single"].remove()
 
         self.plot_dataset["single"] = self.plot_ax.scatter(self.rgb_red.value(),self.rgb_green.value(),self.rgb_blue.value(),marker = "^")
+
+        self.point_comparison.setVisible(True)
         self.plot_figure.canvas.draw()
     #END OF def addRgbPoint(self)
 
+
     def clearRgbPoint(self):
+        self.point_comparison.setVisible(False)
         if "single" in self.plot_dataset.keys() and self.plot_dataset["single"] is not None:
             self.plot_dataset["single"].remove()
             self.plot_dataset["single"]=None
             self.plot_figure.canvas.draw()
     #END OF def clearRgbPoint(self)
+
+    def calculateRgbProximity(self):
+        #TODO: Calculate the nearest colors based on the pallete if loaded.
+        pass
 
 #END OF class MainPVWindow(QMainWindow)
