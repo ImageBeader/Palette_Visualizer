@@ -1,6 +1,7 @@
 {
     "files": [
         "main.py",
-        "mainpvwindow.py"
+        "mainpvwindow.py",
+        "colorpalette.py"
     ]
 }
