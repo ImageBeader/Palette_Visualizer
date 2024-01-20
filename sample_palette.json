@@ -5,12 +5,14 @@
         ,{"id": 1, "name":"White", "rgb": [255,255,255], "shorthand":"W"}
         ,{"id": 79, "name":"Light Pink", "rgb": [245,200,230], "code":"Lp"}
         ,{"id": 6, "name":"Bubblegum", "rgb": [240,130,175], "code":"Bg"}
-        ,{"id": 83, "name":"Magenta", "rgb": [255,60,130], "code":"M"}
+        ,{"id": 83, "name":"Pink", "rgb": [240,95,165], "code":"P"}
+        ,{"id": 38, "name":"Magenta", "rgb": [255,60,130], "code":"M"}
         ,{"id": 88, "name":"Raspberry", "rgb": [190,70,115], "code":"Rb"}
         ,{"id": 96, "name":"Cranapple", "rgb": [78,5,28], "code":"Ca"}
         ,{"id": 59, "name":"Hot Coral", "rgb": [255,90,115], "shorthand":"Hc"}
-        ,{"id": 20, "name":"Rust", "rgb": [185,90,90], "shorthand":"R"}
-        ,{"id": 33, "name":"Peach", "rgb": [250,205,195], "shorthand":"P"}
+        ,{"id": 5, "name":"Red", "rgb": [205,70,90], "code":"R"}
+        ,{"id": 20, "name":"Rust", "rgb": [185,90,90], "shorthand":"Rst"}
+        ,{"id": 33, "name":"Peach", "rgb": [250,205,195], "shorthand":"Pc"}
         ,{"id": 63, "name":"Blush", "rgb": [255,150,160], "shorthand":"Bl"}
         ,{"id": 90, "name":"Butterscotch", "rgb": [240,150,110], "shorthand":"Bs"}
         ,{"id": 4, "name":"Orange", "rgb": [255,115,80], "shorthand":"O"}
