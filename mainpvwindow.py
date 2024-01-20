@@ -1,4 +1,6 @@
 # This Python file uses the following encoding: utf-8
+import math
+import operator
 
 from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout,QVBoxLayout, QGroupBox, QLineEdit, QPushButton, QSpinBox, QFileDialog, QColorDialog, QTextEdit
 from PySide6.QtGui import QColor
@@ -128,9 +130,9 @@ class MainPVWindow(QMainWindow):
         filename = str(file_choice[0])
 
         if filename:
-            color_palette = ColorPalette.loadFromJson(filename)
-            self.plot_ax.set_title(color_palette.getName())
-            plot_data = color_palette.formatForPlot()
+            self.color_palette = ColorPalette.loadFromJson(filename)
+            self.plot_ax.set_title(self.color_palette.getName())
+            plot_data = self.color_palette.formatForPlot()
 
             if self._plotDatasetValid("palette"):
                 self.plot_dataset["palette"].remove()
@@ -173,7 +175,14 @@ class MainPVWindow(QMainWindow):
 
         self.plot_dataset["single"] = self.plot_ax.scatter(self.rgb_red.value(),self.rgb_green.value(),self.rgb_blue.value(),marker = "^")
 
-        self.point_comparison_data.setVisible(True)
+        if self._plotDatasetValid("palette"):
+            pc = self.calculateRgbProximity(5)
+            pc_results = ""
+            for c in pc:
+                pc_results += str(c[0]) + ": " + str(c[1]) + "\n"
+
+            self.point_comparison_data.setText(pc_results)
+            self.point_comparison_data.setVisible(True)
         self.plot_figure.canvas.draw()
     #END OF def addRgbPoint(self)
 
@@ -185,10 +194,20 @@ class MainPVWindow(QMainWindow):
             self.plot_figure.canvas.draw()
     #END OF def clearRgbPoint(self)
 
-    def calculateRgbProximity(self):
-        #TODO: Calculate the nearest colors based on the pallete if loaded.
-        pass
+    def calculateRgbProximity(self, l=-1):
+        colors = self.color_palette.getColors()
 
+        proximity_colors = []
+        for color in colors:
+            p = math.pow (color["rgb"][0] - self.rgb_red.value(),2)
+            p += math.pow(color["rgb"][1] - self.rgb_green.value(),2)
+            p += math.pow(color["rgb"][2] - self.rgb_blue.value(),2)
+            p = math.sqrt(p)
+
+            proximity_colors.append((str(color["name"]) + "(" + str(color["id"]) + ")" , p,))
+
+        return sorted(proximity_colors, key=operator.itemgetter(1))[:l]
+    #END OF def calculateRgbProximity(self)
 
     def _plotDatasetValid(self, k):
         return (k in self.plot_dataset.keys() and self.plot_dataset[k] is not None)

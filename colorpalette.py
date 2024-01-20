@@ -1,6 +1,5 @@
 import json
 
-
 class ColorPalette:
 
     def __init__(self, name=''):
