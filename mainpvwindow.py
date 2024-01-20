@@ -41,10 +41,10 @@ class MainPVWindow(QMainWindow):
         self.plot_ax.set_ylim(0, 255)
         self.plot_ax.set_zlabel("Blue")
         self.plot_ax.set_zlim(0, 255)
+    #END of initializeScatterPlot(self)
 
     def setupUi(self):
         #Root widget
-
         root = QWidget(self)
         root.setGeometry(0,0
                         ,self.width(),self.height()
@@ -52,13 +52,11 @@ class MainPVWindow(QMainWindow):
         root.setLayout(QHBoxLayout())
 
         #tool area
-
         tool_box = QWidget()
         tool_box.setLayout(QVBoxLayout())
         root.layout().addWidget(tool_box)
 
         #palette load
-
         file_load_group= QGroupBox("Pallete File")
         file_load_group.setLayout(QVBoxLayout())
         tool_box.layout().addWidget(file_load_group)
@@ -79,7 +77,6 @@ class MainPVWindow(QMainWindow):
         file_load_group.layout().addWidget(pallete_clear_btn)
 
         #manual color check
-
         single_rgb_group = QGroupBox("Single point check")
         single_rgb_group.setLayout(QVBoxLayout())
         tool_box.layout().addWidget(single_rgb_group)
@@ -117,42 +114,35 @@ class MainPVWindow(QMainWindow):
         rgb_control.layout().addWidget(rgb_clear)
 
         #point reference area
-        self.point_comparison = QGroupBox("Single point")
-        self.point_comparison.setLayout(QVBoxLayout())
-        #self.setVisible(False)
-        single_rgb_group.layout().addWidget(self.point_comparison)
-
-        self.comparison_data = QTextEdit()
-        self.point_comparison.layout().addWidget(self.comparison_data)
+        self.point_comparison_data = QTextEdit()
+        self.point_comparison_data.setVisible(False)
+        single_rgb_group.layout().addWidget(self.point_comparison_data)
 
         #Plot area
-
         pScatterPlot = FigureCanvasQTAgg(self.plot_figure)
-
         root.layout().addWidget(pScatterPlot)
     #END OF def setupUI(self)
 
     def loadPalette(self):
         file_choice = QFileDialog.getOpenFileName(self, "Open Palette", "~","palette file (*.json);;All Files (*)")
-
         filename = str(file_choice[0])
 
         if filename:
-
             color_palette = ColorPalette.loadFromJson(filename)
-
             self.plot_ax.set_title(color_palette.getName())
-
             plot_data = color_palette.formatForPlot()
 
-            if "palette" in self.plot_dataset.keys() and self.plot_dataset["palette"] is not None:
+            if self._plotDatasetValid("palette"):
                 self.plot_dataset["palette"].remove()
-            
-            self.plot_dataset["palette"] = self.plot_ax.scatter(xs=plot_data["x"], ys=plot_data["y"], zs=plot_data["z"], c=plot_data["colors"], marker="o")
 
+            self.plot_dataset["palette"] = self.plot_ax.scatter(
+                                                        xs=plot_data["x"]
+                                                       ,ys=plot_data["y"]
+                                                       ,zs=plot_data["z"]
+                                                       ,c=plot_data["colors"]
+                                                       ,marker="o"
+                                                       )
             self.file_box.setText(filename)
-
-
         self.plot_figure.canvas.draw()
     #END OF def loadPalette(self)
 
@@ -160,7 +150,7 @@ class MainPVWindow(QMainWindow):
         self.file_box.setText("*No palette file loaded*")
         self.plot_ax.set_title("")
 
-        if "palette" in self.plot_dataset.keys() and self.plot_dataset["palette"] is not None:
+        if self._plotDatasetValid("palette"):
             self.plot_dataset["palette"].remove()
             self.plot_dataset["palette"] = None
             self.plot_figure.canvas.draw()
@@ -178,21 +168,18 @@ class MainPVWindow(QMainWindow):
     #END OF def rgbPick(self)
 
     def addRgbPoint(self):
-
-
-        if "single" in self.plot_dataset.keys() and self.plot_dataset["single"] is not None:
+        if self._plotDatasetValid("single"):
             self.plot_dataset["single"].remove()
 
         self.plot_dataset["single"] = self.plot_ax.scatter(self.rgb_red.value(),self.rgb_green.value(),self.rgb_blue.value(),marker = "^")
 
-        self.point_comparison.setVisible(True)
+        self.point_comparison_data.setVisible(True)
         self.plot_figure.canvas.draw()
     #END OF def addRgbPoint(self)
 
-
     def clearRgbPoint(self):
-        self.point_comparison.setVisible(False)
-        if "single" in self.plot_dataset.keys() and self.plot_dataset["single"] is not None:
+        self.point_comparison_data.setVisible(False)
+        if self._plotDatasetValid("single"):
             self.plot_dataset["single"].remove()
             self.plot_dataset["single"]=None
             self.plot_figure.canvas.draw()
@@ -201,5 +188,9 @@ class MainPVWindow(QMainWindow):
     def calculateRgbProximity(self):
         #TODO: Calculate the nearest colors based on the pallete if loaded.
         pass
+
+
+    def _plotDatasetValid(self, k):
+        return (k in self.plot_dataset.keys() and self.plot_dataset[k] is not None)
 
 #END OF class MainPVWindow(QMainWindow)
