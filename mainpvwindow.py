@@ -187,7 +187,7 @@ class MainPVWindow(QMainWindow):
 
             pc = self.calculateRgbProximity(5)
 
-            pc_results = ""
+            pc_results = f"Closest Equivalents to RGB point ({self.rgb_red.value()},{self.rgb_green.value()},{self.rgb_blue.value()}):\n\n"
 
             for c in pc:
                 pc_results += str(c[0]) + ": " + str(c[1]) + "\n"
