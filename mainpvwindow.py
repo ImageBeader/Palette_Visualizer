@@ -154,6 +154,7 @@ class MainPVWindow(QMainWindow):
         self.plot_ax.set_title("")
 
         self._clearProximityData()
+        self.point_comparison_data.setVisible(False)
 
         if self._plotDatasetValid("palette"):
             self.plot_dataset["palette"].remove()
