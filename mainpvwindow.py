@@ -180,10 +180,15 @@ class MainPVWindow(QMainWindow):
         self.plot_dataset["single"] = self.plot_ax.scatter(self.rgb_red.value(),self.rgb_green.value(),self.rgb_blue.value(),marker = "^")
 
         if self._plotDatasetValid("palette"):
+
             self._clearProximityData()
             self.plot_dataset["proximity_lines"]= []
+            self.plot_dataset["proximity_labels"]= []
+
             pc = self.calculateRgbProximity(5)
+
             pc_results = ""
+
             for c in pc:
                 pc_results += str(c[0]) + ": " + str(c[1]) + "\n"
 
@@ -194,7 +199,14 @@ class MainPVWindow(QMainWindow):
                                  ,linestyle="dashed"
                 ))
 
-
+                self.plot_dataset["proximity_labels"].append(self.plot_ax.text(c[2][0]
+                                 ,c[2][1]
+                                 ,c[2][2]
+                                 ,str(c[0])
+                                 ,fontsize=6
+                                 ,color="black"
+                                 ,ha="right"
+                ))
 
             self.point_comparison_data.setText(pc_results)
             self.point_comparison_data.setVisible(True)
@@ -239,4 +251,9 @@ class MainPVWindow(QMainWindow):
             self.plot_dataset["proximity_lines"].clear()
             self.plot_dataset["proximity_lines"] = None
 
+            if self._plotDatasetValid("proximity_labels"):
+                for l in self.plot_dataset["proximity_labels"]:
+                    l.remove()
+                self.plot_dataset["proximity_labels"].clear()
+                self.plot_dataset["proximity_labels"] = None
 #END OF class MainPVWindow(QMainWindow)
