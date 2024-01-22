@@ -43,6 +43,7 @@ class MainPVWindow(QMainWindow):
         self.plot_ax.set_ylim(0, 255)
         self.plot_ax.set_zlabel("Blue")
         self.plot_ax.set_zlim(0, 255)
+
     #END of initializeScatterPlot(self)
 
     def setupUi(self):
@@ -152,6 +153,8 @@ class MainPVWindow(QMainWindow):
         self.file_box.setText("*No palette file loaded*")
         self.plot_ax.set_title("")
 
+        self._clearProximityData()
+
         if self._plotDatasetValid("palette"):
             self.plot_dataset["palette"].remove()
             self.plot_dataset["palette"] = None
@@ -176,18 +179,34 @@ class MainPVWindow(QMainWindow):
         self.plot_dataset["single"] = self.plot_ax.scatter(self.rgb_red.value(),self.rgb_green.value(),self.rgb_blue.value(),marker = "^")
 
         if self._plotDatasetValid("palette"):
+            self._clearProximityData()
+            self.plot_dataset["proximity_lines"]= []
             pc = self.calculateRgbProximity(5)
             pc_results = ""
             for c in pc:
                 pc_results += str(c[0]) + ": " + str(c[1]) + "\n"
 
+                self.plot_dataset["proximity_lines"].extend(self.plot_ax.plot([self.rgb_red.value(),c[2][0]]
+                                 ,[self.rgb_green.value(),c[2][1]]
+                                 ,[self.rgb_blue.value(),c[2][2]]
+                                 ,color="blue"
+                                 ,linestyle="dashed"
+                ))
+
+
+
             self.point_comparison_data.setText(pc_results)
             self.point_comparison_data.setVisible(True)
+
+
         self.plot_figure.canvas.draw()
     #END OF def addRgbPoint(self)
 
     def clearRgbPoint(self):
         self.point_comparison_data.setVisible(False)
+
+        self._clearProximityData()
+
         if self._plotDatasetValid("single"):
             self.plot_dataset["single"].remove()
             self.plot_dataset["single"]=None
@@ -204,12 +223,19 @@ class MainPVWindow(QMainWindow):
             p += math.pow(color["rgb"][2] - self.rgb_blue.value(),2)
             p = math.sqrt(p)
 
-            proximity_colors.append((str(color["name"]) + "(" + str(color["id"]) + ")" , p,))
+            proximity_colors.append((str(color["name"]) + "(" + str(color["id"]) + ")" , p,color["rgb"]))
 
         return sorted(proximity_colors, key=operator.itemgetter(1))[:l]
     #END OF def calculateRgbProximity(self)
 
     def _plotDatasetValid(self, k):
         return (k in self.plot_dataset.keys() and self.plot_dataset[k] is not None)
+
+    def _clearProximityData(self):
+        if self._plotDatasetValid("proximity_lines"):
+            for l in self.plot_dataset["proximity_lines"]:
+                l.remove()
+            self.plot_dataset["proximity_lines"].clear()
+            self.plot_dataset["proximity_lines"] = None
 
 #END OF class MainPVWindow(QMainWindow)
